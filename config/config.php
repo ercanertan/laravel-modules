@@ -27,8 +27,15 @@ return [
         'path' => base_path() . '/vendor/nwidart/laravel-modules/src/Commands/stubs',
         'files' => [
             'start' => 'start.php',
-            'routes' => 'Http/routes.php',
+            'admin-api' => 'Routes/admin/api.php',
+            'admin-console' => 'Routes/admin/console.php',
+            'admin-web' => 'Routes/admin/web.php',
+            'api' => 'Routes/api.php',
+            'console' => 'Routes/console.php',
+            'web' => 'Routes/web.php',
             'json' => 'module.json',
+            'views/admin/index' => 'Resources/views/admin/index.blade.php',
+            'views/admin/master' => 'Resources/views/admin/layouts/master.blade.php',
             'views/index' => 'Resources/views/index.blade.php',
             'views/master' => 'Resources/views/layouts/master.blade.php',
             'scaffold/config' => 'Config/config.php',
@@ -36,8 +43,17 @@ return [
         ],
         'replacements' => [
             'start' => ['LOWER_NAME'],
-            'routes' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            
+            'admin-api' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            'admin-console' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            'admin-web' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            'api' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            'console' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            'web' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+
             'json' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            'views/admin/index' => ['LOWER_NAME'],
+            'views/admin/master' => ['STUDLY_NAME'],
             'views/index' => ['LOWER_NAME'],
             'views/master' => ['STUDLY_NAME'],
             'scaffold/config' => ['STUDLY_NAME'],
@@ -95,6 +111,7 @@ return [
 
         'generator' => [
             'assets' => 'Assets',
+            'routes' => 'Routes',
             'config' => 'Config',
             'command' => 'Console',
             'event' => 'Events',
@@ -103,6 +120,7 @@ return [
             'model' => 'Entities',
             'repository' => 'Repositories',
             'seeder' => 'Database/Seeders',
+            'admin-controller' => 'Http/Admin/Controllers',
             'controller' => 'Http/Controllers',
             'filter' => 'Http/Middleware',
             'request' => 'Http/Requests',

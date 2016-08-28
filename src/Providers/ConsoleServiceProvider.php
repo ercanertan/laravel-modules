@@ -4,6 +4,7 @@ namespace Nwidart\Modules\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Commands\CommandCommand;
+use Nwidart\Modules\Commands\AdminControllerCommand;
 use Nwidart\Modules\Commands\ControllerCommand;
 use Nwidart\Modules\Commands\DisableCommand;
 use Nwidart\Modules\Commands\DumpCommand;
@@ -46,6 +47,7 @@ class ConsoleServiceProvider extends ServiceProvider
     protected $commands = [
         MakeCommand::class,
         CommandCommand::class,
+        AdminControllerCommand::class,
         ControllerCommand::class,
         DisableCommand::class,
         EnableCommand::class,

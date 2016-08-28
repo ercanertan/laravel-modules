@@ -294,6 +294,7 @@ class ModuleGenerator extends Generator
      */
     public function generateFiles()
     {
+
         foreach ($this->getFiles() as $stub => $file) {
             $path = $this->module->getModulePath($this->getName()) . $file;
 
@@ -326,6 +327,11 @@ class ModuleGenerator extends Generator
 
         $this->console->call('module:make-controller', [
             'controller' => $this->getName() . 'Controller',
+            'module' => $this->getName(),
+        ]);
+
+        $this->console->call('module:make-admin-controller', [
+            'admin-controller' => $this->getName() . 'Admin',
             'module' => $this->getName(),
         ]);
     }

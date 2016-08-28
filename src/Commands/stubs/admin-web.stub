@@ -1,0 +1,8 @@
+<?php
+
+Route::group(['middleware' => 'auth', 'prefix' => 'admin/$LOWER_NAME$', 'namespace' => '$MODULE_NAMESPACE$\$STUDLY_NAME$\Http\Admin\Controllers'], function()
+{
+	Route::get('/', '$STUDLY_NAME$AdminController@index');
+
+});
+

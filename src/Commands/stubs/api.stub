@@ -1,0 +1,10 @@
+<?php
+use Illuminate\Http\Request;
+
+
+Route::group(['middleware' => 'auth:api', 'prefix' => 'api/$LOWER_NAME$', 'namespace' => '$MODULE_NAMESPACE$\$STUDLY_NAME$\Http\Controllers'], function()
+{
+	Route::get('/', function (Request $request) {
+	    return $request;
+	});
+});
