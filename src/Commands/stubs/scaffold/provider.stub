@@ -13,20 +13,6 @@ class $CLASS$ extends ServiceProvider
      */
     protected $defer = false;
 
-<<<<<<< HEAD
-	/**
-	 * Boot the application events.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		$this->registerTranslations();
-		$this->registerConfig();
-		$this->registerViews();
-		$this->registerAdminViews();
-	}
-=======
     /**
      * Boot the application events.
      *
@@ -37,8 +23,8 @@ class $CLASS$ extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerAdminViews();
     }
->>>>>>> nWidart/master
 
     /**
      * Register the service provider.
@@ -85,7 +71,6 @@ class $CLASS$ extends ServiceProvider
         }, \Config::get('view.paths')), [$sourcePath]), '$LOWER_NAME$');
     }
 
-<<<<<<< HEAD
 	/**
 	 * Register Admin views.
 	 *
@@ -106,15 +91,6 @@ class $CLASS$ extends ServiceProvider
 		}, \Config::get('view.paths')), [$sourcePath]), '$LOWER_NAME$'.'Admin');
 	}
 
-	/**
-	 * Register translations.
-	 *
-	 * @return void
-	 */
-	public function registerTranslations()
-	{
-		$langPath = base_path('resources/lang/modules/$LOWER_NAME$');
-=======
     /**
      * Register translations.
      *
@@ -123,7 +99,6 @@ class $CLASS$ extends ServiceProvider
     public function registerTranslations()
     {
         $langPath = base_path('resources/lang/modules/$LOWER_NAME$');
->>>>>>> nWidart/master
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, '$LOWER_NAME$');
