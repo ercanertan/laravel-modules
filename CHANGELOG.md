@@ -4,6 +4,47 @@ All Notable changes to `laravel-modules` will be documented in this file.
 
 ## Next -
 
+## Next - 2016-10-25
+
+### Changed
+
+- Added missing import of the `Schema` facade on migration stubs
+- A default plain migration will be used if the name was not matched against a predefined structure (create, add, delete and drop)
+- Add tests for all the different migration structures above
+
+## 1.14.0 - 2016-10-19
+
+### Added
+
+- `module:make-notification` command to generate a notification class
+
+### Changed
+
+- Usage of the `lists()` method on the laravel collection has been removed in favor of `pluck()`
+- Modules can now overwrite the default migration and seed paths in the `module.json`  file
+
+## 0.13.1 - 2016-09-09
+
+### Changed
+
+- Generated emails are now generated in the `Emails` folder by default
+
+## 0.13.0 - 2016-09-08
+
+### Changed
+
+- Ability to set default value on the config() method of a module.
+- Mail: Setting default value to config. Using that as the namespace.
+- Using PSR2 for generated stubs
+
+
+## 0.12.0 - 2016-09-08
+
+### Added
+
+- Generation of Mailable classes
+
+
 ## 0.11.2 - 2016-08-29
 
 ### Changed

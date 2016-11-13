@@ -129,6 +129,8 @@ return [
             'views' => 'Resources/views',
             'test' => 'Tests',
             'jobs' => 'Jobs',
+            'emails' => 'Emails',
+            'notifications' => 'Notifications',
         ],
     ],
     /*

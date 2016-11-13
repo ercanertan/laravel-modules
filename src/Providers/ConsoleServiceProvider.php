@@ -12,7 +12,9 @@ use Nwidart\Modules\Commands\EnableCommand;
 use Nwidart\Modules\Commands\GenerateEventCommand;
 use Nwidart\Modules\Commands\GenerateJobCommand;
 use Nwidart\Modules\Commands\GenerateListenerCommand;
+use Nwidart\Modules\Commands\GenerateMailCommand;
 use Nwidart\Modules\Commands\GenerateMiddlewareCommand;
+use Nwidart\Modules\Commands\GenerateNotificationCommand;
 use Nwidart\Modules\Commands\GenerateProviderCommand;
 use Nwidart\Modules\Commands\GenerateRouteProviderCommand;
 use Nwidart\Modules\Commands\InstallCommand;
@@ -76,6 +78,8 @@ class ConsoleServiceProvider extends ServiceProvider
         MakeRequestCommand::class,
         PublishConfigurationCommand::class,
         GenerateJobCommand::class,
+        GenerateMailCommand::class,
+        GenerateNotificationCommand::class,
     ];
 
     /**
@@ -83,9 +87,7 @@ class ConsoleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        foreach ($this->commands as $command) {
-            $this->commands($command);
-        }
+        $this->commands($this->commands);
     }
 
     /**
@@ -93,11 +95,7 @@ class ConsoleServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        $provides = [];
-
-        foreach ($this->commands as $command) {
-            $provides[] = $command;
-        }
+        $provides = $this->commands;
 
         return $provides;
     }

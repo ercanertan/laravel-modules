@@ -69,7 +69,7 @@ php artisan vendor:publish --provider="Nwidart\Modules\LaravelModulesServiceProv
 
 #### Autoloading
 
-By default controllers, entities or repositories not loaded automatically. You can autoload your modules using `psr-4`. For example :
+By default controllers, entities or repositories are not loaded automatically. You can autoload your modules using `psr-4`. For example :
 
 ```json
 {
@@ -342,6 +342,18 @@ Generate new middleware class.
 php artisan module:make-middleware Auth
 ```
 
+Generate new mailable class.
+
+```
+php artisan module:make-mail WelcomeEmail
+```
+
+Generate new notification class.
+
+```
+php artisan module:make-notification InvoicePaid
+```
+
 Update dependencies for the specified module.
 
 ```
@@ -476,7 +488,7 @@ Module::getModulePath('name');
 Get assets path from the specified module.
 
 ```php
-Module::getAssetPath('name');
+Module::assetPath('name');
 ```
 
 Get config value from this package.

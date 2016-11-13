@@ -2,6 +2,7 @@
 
 namespace Nwidart\Modules\Migrations;
 
+use Illuminate\Support\Collection;
 use Nwidart\Modules\Module;
 
 class Migrator
@@ -32,15 +33,25 @@ class Migrator
     }
 
     /**
+     * @return Module
+     */
+    public function getModule()
+    {
+        return $this->module;
+    }
+
+    /**
      * Get migration path.
      *
      * @return string
      */
     public function getPath()
     {
-        return $this->module->getExtraPath(
-            config('modules.paths.generator.migration')
-        );
+        $config = $this->module->get('migration');
+
+        $path = (is_array($config) && array_key_exists('path', $config)) ? $config['path'] : config('modules.paths.generator.migration');
+
+        return $this->module->getExtraPath($path);
     }
 
     /**
@@ -177,7 +188,6 @@ class Migrator
     public function requireFiles(array $files)
     {
         $path = $this->getPath();
-
         foreach ($files as $file) {
             $this->laravel['files']->requireOnce($path . '/' . $file . '.php');
         }
@@ -248,29 +258,28 @@ class Migrator
      *
      * @param array $migrations
      *
-     * @return array
+     * @return Collection
      */
     public function getLast($migrations)
     {
         $query = $this->table()
             ->where('batch', $this->getLastBatchNumber($migrations))
-            ->whereIn('migration', $migrations)
-            ;
+            ->whereIn('migration', $migrations);
 
         $result = $query->orderBy('migration', 'desc')->get();
 
         return collect($result)->map(function ($item) {
             return (array) $item;
-        })->lists('migration');
+        })->pluck('migration');
     }
 
     /**
      * Get the ran migrations.
      *
-     * @return array
+     * @return Collection
      */
     public function getRan()
     {
-        return $this->table()->lists('migration');
+        return $this->table()->pluck('migration');
     }
 }
