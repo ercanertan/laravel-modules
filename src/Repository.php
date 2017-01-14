@@ -5,6 +5,7 @@ namespace Nwidart\Modules;
 use Countable;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Macroable;
 use Nwidart\Modules\Contracts\RepositoryInterface;
 use Nwidart\Modules\Exceptions\ModuleNotFoundException;
 use Nwidart\Modules\Process\Installer;
@@ -12,6 +13,8 @@ use Nwidart\Modules\Process\Updater;
 
 class Repository implements RepositoryInterface, Countable
 {
+    use Macroable;
+
     /**
      * Application instance.
      *
@@ -318,6 +321,42 @@ class Repository implements RepositoryInterface, Countable
         }
 
         return;
+    }
+
+    /**
+     * Find a specific module by its alias.
+     * @param $alias
+     * @return mixed|void
+     */
+    public function findByAlias($alias)
+    {
+        foreach ($this->all() as $module) {
+            if ($module->getAlias() === $alias) {
+                return $module;
+            }
+        }
+
+        return;
+    }
+
+    /**
+     * Find all modules that are required by a module. If the module cannot be found, throw an exception.
+     *
+     * @param $name
+     * @return array
+     * @throws ModuleNotFoundException
+     */
+    public function findRequirements($name)
+    {
+        $requirements = [];
+
+        $module = $this->findOrFail($name);
+
+        foreach ($module->getRequires() as $requirementName) {
+            $requirements[] = $this->findByAlias($requirementName);
+        }
+
+        return $requirements;
     }
 
     /**
