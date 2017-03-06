@@ -4,6 +4,18 @@ All Notable changes to `laravel-modules` will be documented in this file.
 
 ## Next
 
+## 1.17.1 - 2017-03-02
+
+### Changed
+
+- Fixed issues with route file location in `start.php`
+
+## 1.17.0 - 2017-02-27
+
+### Changed
+ 
+- Add checking for failure to parse module JSON
+
 ## 1.16.0 - 2017-01-24
 
 ### Added

@@ -2,6 +2,7 @@
 
 namespace Nwidart\Modules\tests;
 
+use Nwidart\Modules\Exceptions\InvalidJsonException;
 use Nwidart\Modules\Json;
 
 class JsonTest extends BaseTestCase
@@ -24,6 +25,17 @@ class JsonTest extends BaseTestCase
         $path = __DIR__ . '/stubs/module.json';
 
         $this->assertEquals($path, $this->json->getPath());
+    }
+
+    /** @test */
+    public function it_throws_an_exception_with_invalid_json()
+    {
+        $path = __DIR__ . '/stubs/InvalidJsonModule/module.json';
+
+        $this->expectException(InvalidJsonException::class);
+        $this->expectExceptionMessage('Error processing file: ' . $path . '. Error: Syntax error');
+
+        new Json($path, $this->app['files']);
     }
 
     /** @test */
