@@ -13,13 +13,12 @@
 */
 
 if (!app()->routesAreCached()) {
+	require __DIR__ . '/Routes/admin/api.php';
+	require __DIR__ . '/Routes/admin/console.php';
+	require __DIR__ . '/Routes/admin/web.php';
 
     require __DIR__ . '/Routes/api.php';
 	require __DIR__ . '/Routes/console.php';
 	require __DIR__ . '/Routes/web.php';
-
-	require __DIR__ . '/Routes/admin/api.php';
-	require __DIR__ . '/Routes/admin/console.php';
-	require __DIR__ . '/Routes/admin/web.php';
 }
 
