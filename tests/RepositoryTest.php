@@ -4,6 +4,7 @@ namespace Nwidart\Modules\tests;
 
 use Illuminate\Filesystem\Filesystem;
 use Nwidart\Modules\Collection;
+use Nwidart\Modules\Exceptions\InvalidAssetPath;
 use Nwidart\Modules\Exceptions\ModuleNotFoundException;
 use Nwidart\Modules\Module;
 use Nwidart\Modules\Repository;
@@ -144,6 +145,15 @@ class RepositoryTest extends BaseTestCase
     }
 
     /** @test */
+    public function it_throws_exception_if_module_is_omitted()
+    {
+        $this->expectException(InvalidAssetPath::class);
+        $this->expectExceptionMessage('Module name was not specified in asset [test.js].');
+
+        $this->repository->asset('test.js');
+    }
+
+    /** @test */
     public function it_can_detect_if_module_is_active()
     {
         $this->repository->addLocation(__DIR__ . '/stubs/Recipe');
@@ -221,5 +231,32 @@ class RepositoryTest extends BaseTestCase
 
         $this->assertCount(1, $requirements);
         $this->assertInstanceOf(Module::class, $requirements[0]);
+    }
+
+    /** @test */
+    public function it_can_register_macros()
+    {
+        Module::macro('registeredMacro', function () {});
+
+        $this->assertTrue(Module::hasMacro('registeredMacro'));
+    }
+
+    /** @test */
+    public function it_does_not_have_unregistered_macros()
+    {
+        $this->assertFalse(Module::hasMacro('unregisteredMacro'));
+    }
+
+    /** @test */
+    public function it_calls_macros_on_modules()
+    {
+        Module::macro('getReverseName', function () {
+            return strrev($this->getLowerName());
+        });
+
+        $this->repository->addLocation(__DIR__ . '/stubs/Recipe');
+        $module = $this->repository->find('recipe');
+
+        $this->assertEquals('epicer', $module->getReverseName());
     }
 }

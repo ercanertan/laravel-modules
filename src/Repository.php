@@ -7,6 +7,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use Nwidart\Modules\Contracts\RepositoryInterface;
+use Nwidart\Modules\Exceptions\InvalidAssetPath;
 use Nwidart\Modules\Exceptions\ModuleNotFoundException;
 use Nwidart\Modules\Process\Installer;
 use Nwidart\Modules\Process\Updater;
@@ -392,11 +393,13 @@ class Repository implements RepositoryInterface, Countable
     /**
      * Get all modules as laravel collection instance.
      *
+     * @param $status
+     *
      * @return Collection
      */
-    public function collections()
+    public function collections($status = 1)
     {
-        return new Collection($this->enabled());
+        return new Collection($this->getByStatus($status));
     }
 
     /**
@@ -447,11 +450,17 @@ class Repository implements RepositoryInterface, Countable
      */
     public function getUsedStoragePath()
     {
-        if (!$this->app['files']->exists($path = storage_path('app/modules'))) {
-            $this->app['files']->makeDirectory($path, 0777, true);
+        $directory = storage_path('app/modules');
+        if ($this->app['files']->exists($directory) === false) {
+            $this->app['files']->makeDirectory($directory, 0777, true);
         }
 
-        return $path . '/modules.used';
+        $path = storage_path('app/modules/modules.used');
+        if (!$this->app['files']->exists($path)) {
+            $this->app['files']->put($path, '');
+        }
+
+        return $path;
     }
 
     /**
@@ -517,6 +526,9 @@ class Repository implements RepositoryInterface, Countable
      */
     public function asset($asset)
     {
+        if (str_contains($asset, ':') === false) {
+            throw InvalidAssetPath::missingModuleName($asset);
+        }
         list($name, $url) = explode(':', $asset);
 
         $baseUrl = str_replace(public_path() . DIRECTORY_SEPARATOR, '', $this->getAssetsPath());

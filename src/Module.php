@@ -6,9 +6,12 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Macroable;
 
 class Module extends ServiceProvider
 {
+    use Macroable;
+
     /**
      * The laravel application instance.
      *
@@ -24,11 +27,16 @@ class Module extends ServiceProvider
     protected $name;
 
     /**
-     * The module path,.
+     * The module path.
      *
      * @var string
      */
     protected $path;
+
+    /**
+     * @var array of cached Json objects, keyed by filename
+     */
+    protected $moduleJson = [];
 
     /**
      * The constructor.
@@ -39,7 +47,7 @@ class Module extends ServiceProvider
      */
     public function __construct(Application $app, $name, $path)
     {
-        $this->app = $app;
+        parent::__construct($app);
         $this->name = $name;
         $this->path = realpath($path);
     }
@@ -177,17 +185,21 @@ class Module extends ServiceProvider
     }
 
     /**
-     * Get json contents.
+     * Get json contents from the cache, setting as needed.
+     *
+     * @param $file
      *
      * @return Json
      */
     public function json($file = null)
     {
-        if (is_null($file)) {
+        if ($file === null) {
             $file = 'module.json';
         }
 
-        return new Json($this->getPath() . '/' . $file, $this->app['files']);
+        return array_get($this->moduleJson, $file, function () use ($file) {
+            return $this->moduleJson[$file] = new Json($this->getPath() . '/' . $file, $this->app['files']);
+        });
     }
 
     /**
@@ -347,8 +359,6 @@ class Module extends ServiceProvider
 
     /**
      * Disable the current module.
-     *
-     * @return bool
      */
     public function disable()
     {
