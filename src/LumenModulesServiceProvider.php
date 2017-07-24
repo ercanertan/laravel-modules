@@ -4,24 +4,24 @@ namespace Nwidart\Modules;
 
 use Nwidart\Modules\Support\Stub;
 
-class LaravelModulesServiceProvider extends ModulesServiceProvider
+class LumenModulesServiceProvider extends ModulesServiceProvider
 {
     /**
      * Booting the package.
      */
     public function boot()
     {
-        $this->registerNamespaces();
-        $this->registerModules();
+        $this->setupStubPath();
     }
 
     /**
-     * Register the service provider.
+     * Register all modules.
      */
     public function register()
     {
+        $this->registerNamespaces();
         $this->registerServices();
-        $this->setupStubPath();
+        $this->registerModules();
         $this->registerProviders();
     }
 
@@ -32,10 +32,8 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
     {
         Stub::setBasePath(__DIR__ . '/Commands/stubs');
 
-        $this->app->booted(function ($app) {
-            if ($app['modules']->config('stubs.enabled') === true) {
-                Stub::setBasePath($app['modules']->config('stubs.path'));
-            }
-        });
+        if (app('modules')->config('stubs.enabled') === true) {
+            Stub::setBasePath(app('modules')->config('stubs.path'));
+        }
     }
 }

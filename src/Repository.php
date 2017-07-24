@@ -3,7 +3,7 @@
 namespace Nwidart\Modules;
 
 use Countable;
-use Illuminate\Foundation\Application;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use Nwidart\Modules\Contracts\RepositoryInterface;

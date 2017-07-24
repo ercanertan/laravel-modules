@@ -2,8 +2,8 @@
 
 namespace Nwidart\Modules;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
@@ -13,7 +13,7 @@ class Module extends ServiceProvider
     use Macroable;
 
     /**
-     * The laravel application instance.
+     * The laravel|lumen application instance.
      *
      * @var Application
      */
@@ -55,7 +55,7 @@ class Module extends ServiceProvider
     /**
      * Get laravel instance.
      *
-     * @return \Illuminate\Foundation\Application
+     * @return Application
      */
     public function getLaravel()
     {
