@@ -38,6 +38,14 @@ class PublishTranslationCommand extends Command
     }
 
     /**
+     * Execute the fire command.
+     */
+    public function handle()
+    {
+        $this->fire();
+    }
+
+    /**
      * Publish assets from all modules.
      */
     public function publishAll()

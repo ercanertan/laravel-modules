@@ -52,6 +52,14 @@ abstract class GeneratorCommand extends Command
     }
 
     /**
+     * Execute the fire command.
+     */
+    public function handle()
+    {
+        $this->fire();
+    }
+
+    /**
      * Get class name.
      *
      * @return string

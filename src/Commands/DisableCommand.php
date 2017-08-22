@@ -38,6 +38,14 @@ class DisableCommand extends Command
     }
 
     /**
+     * Execute the fire command.
+     */
+    public function handle()
+    {
+        $this->fire();
+    }
+
+    /**
      * Get the console command arguments.
      *
      * @return array

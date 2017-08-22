@@ -42,6 +42,14 @@ class PublishMigrationCommand extends Command
     }
 
     /**
+     * Execute the fire command.
+     */
+    public function handle()
+    {
+        $this->fire();
+    }
+
+    /**
      * Publish migration for the specified module.
      *
      * @param \Nwidart\Modules\Module $module

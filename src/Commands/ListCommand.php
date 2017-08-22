@@ -30,6 +30,14 @@ class ListCommand extends Command
     }
 
     /**
+     * Execute the fire command.
+     */
+    public function handle()
+    {
+        $this->fire();
+    }
+
+    /**
      * Get table rows.
      *
      * @return array

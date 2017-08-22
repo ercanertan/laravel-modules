@@ -52,6 +52,14 @@ class InstallCommand extends Command
     }
 
     /**
+     * Execute the fire command.
+     */
+    public function handle()
+    {
+        $this->fire();
+    }
+
+    /**
      * Install modules from modules.json file.
      */
     protected function installFromFile()

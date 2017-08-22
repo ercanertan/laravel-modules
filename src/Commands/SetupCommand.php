@@ -31,6 +31,14 @@ class SetupCommand extends Command
     }
 
     /**
+     * Execute the fire command.
+     */
+    public function handle()
+    {
+        $this->fire();
+    }
+
+    /**
      * Generate the modules folder.
      */
     public function generateModulesFolder()
