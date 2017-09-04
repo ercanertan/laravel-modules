@@ -29,6 +29,15 @@ class SeedCommand extends Command
      */
     protected $description = 'Run database seeder from the specified module or from all modules.';
 
+
+    /**
+     * Execute the console command.
+     */
+    public function handle()
+    {
+        $this->fire();
+    }
+    
     /**
      * Execute the console command.
      */
